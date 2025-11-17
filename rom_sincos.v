@@ -5,8 +5,8 @@ module rom_sincos #(
   parameter ADDR_W = 12,         // address width (4096 entries)
   parameter DATA_W = 16          // output width signed
 ) (
-  input  wire                 clk,
-  input  wire [ADDR_W-1:0]    addr,
+  input  wire                 clk_i,
+  input  wire [ADDR_W-1:0]    addr_i,
   output reg signed [DATA_W-1:0] data_out
 );
   // depth
@@ -22,7 +22,16 @@ module rom_sincos #(
   end
 
   // synchronous read (1 cycle latency)
-  always @(posedge clk) begin
-    data_out <= mem[addr];
+  always @(posedge clk_i) begin
+    data_out <= mem[addr_i];
   end
 endmodule
+/* можно по 2 старшим битам фазы определить четверть приращения фазы, то есть синусоиды 
+и тогда можно уменьшить количество памяти в 8 раз(в 4 по син, и в 4 по 4 кос)
+
+case(addr[32:31])
+  00:нормальная адресация
+  01:max-адресация
+  10:нормальная адресация только с '-'
+  11:max-адресация только с '-'
+*/ 
