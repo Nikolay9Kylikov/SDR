@@ -1,0 +1,5 @@
+lib
+*wlf
+*.ini
+*.log
+transcript
