@@ -2,8 +2,6 @@
 module tb_top ();
 	reg clk;
 	reg rst;
-	reg valid;
-	wire valid_i = valid;
 	wire [3:0] valid_o;
 
 	wire [15:0] sin0_o;
@@ -18,7 +16,6 @@ module tb_top ();
 	top top(
 		.clk_i		(clk),
 		.rst_i		(rst),
-		.valid_i	(valid_i),
 		.valid_o	(valid_o),
 		.sin0_o		(sin0_o),
 		.cos0_o		(cos0_o),
@@ -36,12 +33,10 @@ module tb_top ();
 	always #5 clk = ~clk;  // 100 MHz
 
 	initial begin
-		rst = 1;
-		valid = 0;
-		#100;
-		rst = 0;
-		valid = 1;
-		#10_000;
+		rst <= 1;
+		#95;
+		rst <= 0;
+		#1_000;
 		$finish;
 
 	end
