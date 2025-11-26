@@ -3,6 +3,7 @@
 module phase_acc( // phase_gen
 	input	clk_i,
 	input	rst_i,
+	input	valid_i, // valid will be 1 when the signal appears at the input, in top
 	input	[31:0] p_inc_i,  // input signal of initial sign phase 32'b0011_0011_0011_0011_0011_0011_0011_0011 for freq fall to 0 Hz
 	output	[127:0] phase_o,
 	output	reg		valid_o
