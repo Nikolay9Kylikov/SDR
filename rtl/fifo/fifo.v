@@ -2,13 +2,13 @@
 
 module fifo (
 	// wr clock domain
-	input  rst_i,
-	input  rx_clk_i,
-	input  wr_en_i,
-	input  [11:0] wr_data_i,
+	input	rst_i,
+	input	rx_clk_i,
+	input	wr_en_i,
+	input	[11:0] wr_data_i,
 	// rd clock domain
-	input  tx_clk_i,
-	output reg [11:0] rd_data_o
+	input	tx_clk_i,
+	output	reg [11:0] rd_data_o
 );
 
 	integer i;

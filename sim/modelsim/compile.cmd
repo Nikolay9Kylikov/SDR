@@ -9,14 +9,18 @@ mkdir logs
 mkdir lib
 vlib lib\top												>> compile.log
 vlib lib\tb													>> compile.log
+vlib lib\xilinx												>> compile.log
 
 vmap top lib\top											>> compile.log
 vmap tb lib\tb												>> compile.log
+vmap xilinx lib\xilinx										>> compile.log
 
-vlog	-work top ../../top.v								>> compile.log
-vlog	-work top ../../phase_acc.v							>> compile.log
-vlog	-work top ../../cordic.v							>> compile.log
+vlog	-work top ../../rtl/*.v								>> compile.log
+vlog	-work top ../../rtl/oscillator/*.v					>> compile.log
+vlog	-work top ../../rtl/fifo/*.v						>> compile.log
 
-vlog	-sv	-work tb ../tb_top.sv						>> compile.log
+vlog	-work xilinx ../../xilinx/*.v						>> compile.log
+
+vlog	-sv	-work tb ../tb_top.sv							>> compile.log
 
 vsim -gui -do "do run.do"

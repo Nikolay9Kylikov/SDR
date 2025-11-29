@@ -1,4 +1,4 @@
-vsim -voptargs="+acc" -L top -L tb -t ps tb.tb_top
+vsim -voptargs="+acc" -L top -L tb -t ps tb.tb_top xilinx.glbl
 
 log * -r
 
