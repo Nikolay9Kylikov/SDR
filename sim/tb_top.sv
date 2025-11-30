@@ -6,20 +6,17 @@ module tb_top;
 	reg rst;
 
 	// Генерация тактового сигнала
-	reg sysclk = 1'b0;
+	reg sysclk = 1'b1;
 	always #2 sysclk = ~sysclk;  // 250 MHz
 
-	reg clk_ads_a = 1'b0;
+	reg clk_ads_a = 1'b1;
 	always #2 clk_ads_a = ~clk_ads_a;  // 250 MHz
 
-	reg clk_ads_b = 1'b0;
+	reg clk_ads_b = 1'b1;
 	always #2 clk_ads_b = ~clk_ads_b;  // 250 MHz
 
 	reg signed [11:0] adc_data_a;
 	reg signed [11:0] adc_data_b;
-
-	reg wr_en_fifo_a;
-	reg wr_en_fifo_b;
 
 	wire [27:0] inphase0;
 	wire [27:0] inphase1;
@@ -38,8 +35,6 @@ module tb_top;
 		.clk_ads_an			(~clk_ads_a),
 		.clk_ads_bp			(clk_ads_b),
 		.clk_ads_bn			(~clk_ads_b),
-		.wr_en_fifo_a		(wr_en_fifo_a),
-		.wr_en_fifo_b		(wr_en_fifo_b),
 		.data_ap			(adc_data_a),
 		.data_an			(~adc_data_a),
 		.data_bp			(adc_data_b),
@@ -97,12 +92,8 @@ module tb_top;
 		rst = 1;
 		adc_data_a = 0;
 		adc_data_b = 0;
-		wr_en_fifo_a = 1'b0;
-		wr_en_fifo_b = 1'b0;
 
-		#50 rst = 0;
-		wr_en_fifo_a = 1'b1;
-		wr_en_fifo_b = 1'b1;
+		#120 rst = 0;
 
 		// Работаем 5 мкс
 		#5000;

@@ -7,8 +7,6 @@ module sdr(
 	input clk_ads_an,
 	input clk_ads_bp,
 	input clk_ads_bn,
-	input wr_en_fifo_a,
-	input wr_en_fifo_b,
 	input [11:0] data_ap,
 	input [11:0] data_an,
 	input [11:0] data_bp,
@@ -26,6 +24,10 @@ module sdr(
 	wire clk250;
 	wire adc_clk_a;
 	wire adc_clk_b;
+
+	wire wr_en_fifo_a = ~rst_i;
+	wire wr_en_fifo_b = ~rst_i;
+	wire valid = ~rst_i;
 
 	clk_gen clk_gen(
 		.sysclk_p		(sysclk_p),
@@ -69,7 +71,7 @@ module sdr(
 
 	wire [47:0] data_align;
 
-	delay14 delay(						// формирование задержки для выравнивания с CORDIC
+	delay delay14(						// формирование задержки для выравнивания с CORDIC
 		.clk_i				(clk250),
 		.data_i				(data_adc),
 		.data_o				(data_align)
@@ -82,6 +84,7 @@ module sdr(
 	oscillator oscillator(
 		.clk_i					(clk250),
 		.rst_i					(rst_i),
+		.valid_i				(valid),
 		.valid_o				(valid_os),
 		.sin_o					(sin),
 		.cos_o					(cos)

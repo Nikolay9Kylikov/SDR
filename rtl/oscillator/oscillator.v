@@ -3,6 +3,7 @@
 module oscillator(
 	input clk_i,
 	input rst_i,
+	input valid_i,
 	output [3:0] valid_o,
 	output [63:0] sin_o,
 	output [63:0] cos_o
@@ -17,6 +18,7 @@ module oscillator(
 	phase_acc phase_gen(
 		.clk_i		(clk_i),
 		.rst_i		(rst_i),
+		.valid_i	(valid_i),
 		.p_inc_i	(p_inc),
 		.phase_o	(phase),
 		.valid_o	(valid)

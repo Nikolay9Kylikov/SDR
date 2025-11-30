@@ -7,8 +7,8 @@ module adc_channel(
 	input	[11:0] data_an,
 	input	[11:0] data_bp,
 	input	[11:0] data_bn,
-	output	[23:0] data_a_o,
-	output	[23:0] data_b_o
+	output reg [23:0] data_a_o,
+	output reg [23:0] data_b_o
 );
 
 	wire [11:0] double_data_a;
@@ -38,8 +38,14 @@ module adc_channel(
 	wire [11:0] data_a_fall_o;
 	wire [11:0] data_b_rise_o;
 	wire [11:0] data_b_fall_o;
-	assign data_a_o = {data_a_rise_o, data_a_fall_o}; // b_r, b_f, a_r, a_f
-	assign data_b_o = {data_b_rise_o, data_b_fall_o}; // b_r, b_f, a_r, a_f
+
+
+	always @(posedge adc_clk_a_i) begin
+		data_a_o <= {data_a_rise_o, data_a_fall_o}; // b_r, b_f, a_r, a_f
+	end
+	always @(posedge adc_clk_b_i) begin
+		data_b_o <= {data_b_rise_o, data_b_fall_o}; // b_r, b_f, a_r, a_f
+	end
 
 	genvar j;
 	generate

@@ -11,7 +11,8 @@ module phase_acc( // phase_gen
 
 	reg	[31:0] phase_acc = 0;
 
-	wire [31:0] p_inc = p_inc_i;
+	wire [31:0] p_inc;
+	assign p_inc = p_inc_i;
 
 	assign phase_o[31:0] = phase_acc;
 	assign phase_o[63:32] = phase_acc + p_inc;

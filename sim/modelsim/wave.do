@@ -22,17 +22,34 @@ add wave -noupdate /tb_top/t
 add wave -noupdate /tb_top/Ts
 add wave -noupdate -divider adc_channel
 add wave -noupdate /tb_top/sdr/adc_channel/double_data_a
+add wave -noupdate /tb_top/sdr/adc_channel/double_data_b
 add wave -noupdate /tb_top/sdr/adc_channel/data_a_rise_o
 add wave -noupdate /tb_top/sdr/adc_channel/data_a_fall_o
-add wave -noupdate /tb_top/sdr/adc_channel/double_data_b
 add wave -noupdate /tb_top/sdr/adc_channel/data_a_o
 add wave -noupdate /tb_top/sdr/adc_channel/data_b_o
 add wave -noupdate -divider fifo
 add wave -noupdate /tb_top/sdr/fifo4/wr_data_a_i
 add wave -noupdate /tb_top/sdr/fifo4/wr_data_b_i
 add wave -noupdate /tb_top/sdr/fifo4/data_adc_o
+add wave -noupdate -divider oscillator
+add wave -noupdate /tb_top/sdr/oscillator/sin_o
+add wave -noupdate /tb_top/sdr/oscillator/cos_o
+add wave -noupdate /tb_top/sdr/oscillator/valid_o
+add wave -noupdate -divider mixer
+add wave -noupdate /tb_top/sdr/mixer/sample0_i
+add wave -noupdate /tb_top/sdr/mixer/sample1_i
+add wave -noupdate /tb_top/sdr/mixer/sample2_i
+add wave -noupdate /tb_top/sdr/mixer/sample3_i
+add wave -noupdate /tb_top/sdr/mixer/cos0_i
+add wave -noupdate /tb_top/sdr/mixer/cos1_i
+add wave -noupdate /tb_top/sdr/mixer/cos2_i
+add wave -noupdate /tb_top/sdr/mixer/cos3_i
+add wave -noupdate /tb_top/sdr/mixer/sin0_i
+add wave -noupdate /tb_top/sdr/mixer/sin1_i
+add wave -noupdate /tb_top/sdr/mixer/sin2_i
+add wave -noupdate /tb_top/sdr/mixer/sin3_i
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {101915 ps} 0}
+WaveRestoreCursors {{Cursor 1} {126398 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 248
 configure wave -valuecolwidth 109
@@ -48,4 +65,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {93404 ps} {120898 ps}
+WaveRestoreZoom {100538 ps} {162772 ps}

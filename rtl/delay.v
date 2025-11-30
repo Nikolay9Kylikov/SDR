@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module delay14 (
+module delay(
 	input	wire		clk_i,
 	input	wire [47:0] data_i,
 	output	reg  [47:0] data_o
