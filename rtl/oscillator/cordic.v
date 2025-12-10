@@ -111,7 +111,7 @@ module cordic (
 		for (i = 0; i < 16; i = i + 1) begin : cordic_stages
 			always @(posedge clk_i) begin
 				if (valid_pipeline[i]) begin
-					if ($signed(theta[i]) >= 32'sh0) begin
+					if (~theta[i][31]) begin
 						x[i+1] <= x[i] - (y[i] >>> i);
 						y[i+1] <= y[i] + (x[i] >>> i);
 						theta[i+1] <= theta[i] - $signed(ATAN_TABLE[32*i+:32]);
