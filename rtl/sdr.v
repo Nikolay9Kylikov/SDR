@@ -11,14 +11,14 @@ module sdr(
 	input [11:0] data_an,
 	input [11:0] data_bp,
 	input [11:0] data_bn,
-	output [27:0] inphase0,
-	output [27:0] inphase1,
-	output [27:0] inphase2,
-	output [27:0] inphase3,
-	output [27:0] quadrature0,
-	output [27:0] quadrature1,
-	output [27:0] quadrature2,
-	output [27:0] quadrature3
+	output [15:0] f_inphase0_o,
+	output [15:0] f_inphase1_o,
+	output [15:0] f_inphase2_o,
+	output [15:0] f_inphase3_o,
+	output [15:0] f_quadrature0_o,
+	output [15:0] f_quadrature1_o,
+	output [15:0] f_quadrature2_o,
+	output [15:0] f_quadrature3_o
 );
 
 	wire clk250;
@@ -90,6 +90,14 @@ module sdr(
 		.cos_o					(cos)
 	);
 
+	wire [27:0] inphase0;
+	wire [27:0] inphase1;
+	wire [27:0] inphase2;
+	wire [27:0] inphase3;
+	wire [27:0] quadrature0;
+	wire [27:0] quadrature1;
+	wire [27:0] quadrature2;
+	wire [27:0] quadrature3;
 
 	mixer mixer(
 		.clk_i					(clk250),
@@ -115,5 +123,45 @@ module sdr(
 		.quadrature2_o			(quadrature2),
 		.quadrature3_o			(quadrature3)
 	);
+
+	wire [13:0] f_inphase0;
+	wire [13:0] f_inphase1;
+	wire [13:0] f_inphase2;
+	wire [13:0] f_inphase3;
+	wire [13:0] f_quadrature0;
+	wire [13:0] f_quadrature1;
+	wire [13:0] f_quadrature2;
+	wire [13:0] f_quadrature3;
+
+	assign f_inphase0_o = {f_inphase0, 2'b0};
+	assign f_inphase1_o = {f_inphase1, 2'b0};
+	assign f_inphase2_o = {f_inphase2, 2'b0};
+	assign f_inphase3_o = {f_inphase3, 2'b0};
+	assign f_quadrature0_o = {f_quadrature0, 2'b0};
+	assign f_quadrature1_o = {f_quadrature1, 2'b0};
+	assign f_quadrature2_o = {f_quadrature2, 2'b0};
+	assign f_quadrature3_o = {f_quadrature3, 2'b0};
+
+
+	fir_compiler_0 F_In0(
+		.aclk(clk250),																								// input wire aclk
+		.s_axis_data_tvalid(1'b1),																					// input wire s_axis_data_tvalid
+		.s_axis_data_tready(), 																						// output wire s_axis_data_tready
+		.s_axis_data_tdata({{inphase3, 4'b0}, {inphase2, 4'b0}, {inphase1, 4'b0}, {inphase0, 4'b0}}),				// input wire [27 : 0] s_axis_data_tdata
+		.m_axis_data_tvalid(f_inp_tvalid),																			// output wire m_axis_data_tvalid
+		.m_axis_data_tdata({f_inphase3, f_inphase2, f_inphase1, f_inphase0})										// output wire [15 : 0] m_axis_data_tdata
+	);
+
+
+	//Quadrature
+	fir_compiler_0 F_Q0(
+		.aclk(clk250),																								// input wire aclk
+		.s_axis_data_tvalid(1'b1),																					// input wire s_axis_data_tvalid
+		.s_axis_data_tready(), 																						// output wire s_axis_data_tready
+		.s_axis_data_tdata({{quadrature3, 4'b0}, {quadrature2, 4'b0}, {quadrature1, 4'b0}, {quadrature0, 4'b0}}),	// input wire [27 : 0] s_axis_data_tdata
+		.m_axis_data_tvalid(f_q_tvalid),																			// output wire m_axis_data_tvalid
+		.m_axis_data_tdata({f_quadrature3, f_quadrature2, f_quadrature1, f_quadrature0})							// output wire [15 : 0] m_axis_data_tdata
+	);
+
 
 endmodule

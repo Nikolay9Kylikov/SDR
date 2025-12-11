@@ -14,7 +14,7 @@ module fifo4(
 
 	wire [23:0] data_a;
 	wire [23:0] data_b;
-	assign data_adc_o = {data_b, data_a}; // if a comes before b
+	assign data_adc_o = {data_a, data_b}; // if a comes before b
 
 	genvar i;
 	generate

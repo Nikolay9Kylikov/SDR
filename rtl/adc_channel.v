@@ -41,10 +41,10 @@ module adc_channel(
 
 
 	always @(posedge adc_clk_a_i) begin
-		data_a_o <= {data_a_rise_o, data_a_fall_o}; // b_r, b_f, a_r, a_f
+		data_a_o <= {data_a_fall_o, data_a_rise_o}; // b_r, b_f, a_r, a_f
 	end
 	always @(posedge adc_clk_b_i) begin
-		data_b_o <= {data_b_rise_o, data_b_fall_o}; // b_r, b_f, a_r, a_f
+		data_b_o <= {data_b_fall_o, data_b_rise_o}; // b_r, b_f, a_r, a_f
 	end
 
 	genvar j;
